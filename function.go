@@ -12,22 +12,20 @@ type (
 		errch         chan error
 		wg            *sync.WaitGroup
 
-		lock              sync.Mutex
-		stopped           bool
-		resHandler        func(interface{})
-		errHandler        func(error)
-		completionHandler func()
+		lock       sync.Mutex
+		stopped    bool
+		resHandler func(interface{})
+		errHandler func(error)
 	}
 )
 
 // Run creates a new function that can run fn up to n times in parallel.
 func Run(fn WorkerFn, n int) *Function {
 	f := &Function{
-		fn:                fn,
-		n:                 n,
-		resHandler:        dummyResHandler,
-		errHandler:        dummyErrHandler,
-		completionHandler: dummyCompletionHandler,
+		fn:         fn,
+		n:          n,
+		resHandler: dummyResHandler,
+		errHandler: dummyErrHandler,
 	}
 	f.Reset()
 	return f
@@ -95,7 +93,6 @@ func (f *Function) processResults() {
 		case res, ok := <-f.output:
 			if !ok {
 				if otherClosed {
-					f.completionHandler()
 					return
 				}
 				otherClosed = true
@@ -106,7 +103,6 @@ func (f *Function) processResults() {
 		case err, ok := <-f.errch:
 			if !ok {
 				if otherClosed {
-					f.completionHandler()
 					return
 				}
 				otherClosed = true
@@ -119,4 +115,3 @@ func (f *Function) processResults() {
 
 func dummyResHandler(res interface{}) {}
 func dummyErrHandler(err error)       {}
-func dummyCompletionHandler()         {}
