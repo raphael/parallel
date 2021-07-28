@@ -1,7 +1,10 @@
 # Parallel
  
+[![Build Status](https://github.com/raphael/parallel/workflows/Test/badge.svg?branch=main&event=push)](https://github.com/raphael/parallel/actions?query=branch%3Amain+event%3Apush)
+[![Coverage](https://coveralls.io/repos/github/raphael/parallel/badge.svg?branch=main&style=flat-square)](https://coveralls.io/github/raphael/parallel?branch=main)
+[![Go Report Card](https://goreportcard.com/badge/github.com/raphael/parallel)](https://goreportcard.com/report/github.com/raphael/parallel)
 [![Go Reference](https://pkg.go.dev/badge/github.com/raphael/parallel.svg)](https://pkg.go.dev/github.com/raphael/parallel)
- [![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://github.com/raphael/parallel/blob/main/LICENSE.txt)
+[![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://github.com/raphael/parallel/blob/main/LICENSE.txt)
 
 Parallel is a simple Go package for queueing parallel executions of a given
 function potentially providing different values for its arguments in each

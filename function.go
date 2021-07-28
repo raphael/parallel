@@ -84,7 +84,7 @@ func (f *Function) OnResult(fn func(interface{})) { f.resHandler = fn }
 func (f *Function) OnError(fn func(error)) { f.errHandler = fn }
 
 // processResults reads from the output and error channels and calls the
-// appropiate handlers.
+// appropriate handlers.
 func (f *Function) processResults() {
 	defer f.wg.Done()
 	var otherClosed bool
