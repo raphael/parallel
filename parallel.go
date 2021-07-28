@@ -16,39 +16,8 @@ type (
 
 // Do runs n goroutines that call fn in parallel. It reads the function's
 // argument from the input channel and writes the results and any error to the
-// returned channels. The returned channels are closed one all inputs have been
+// returned channels. The returned channels are closed once all inputs have been
 // processed (that is the input channel is empty and closed).
-//
-// Example:
-//
-//    // 1. Create input channel
-//    input := make(chan interface{})
-//    // 2. Call Do to execute fn in n goroutines
-//    resch, errch := parallel.Do(fn, n, input)
-//    // 3. Write to input channel in separate goroutine
-//    go func(input chan interface{}) {
-//       // some loop that writes to the input channel
-//       input <- someValue
-//       // close input channel once we have written all values
-//       close(input)
-//    }(input)
-//    // 4. Read from resch and errch in main goroutine
-//    loop:
-//    for {
-//       select {
-//       case res, ok := <-resch:
-//          if !ok {
-//	       // resch is closed, we are done
-//	       break loop
-//	    }
-//          // do something with res
-//       case err, ok := <-errch:
-//          if ok {
-//             // do something with err
-//          }
-//       }
-//   }
-//
 func Do(fn WorkerFn, n int, input chan interface{}) (chan interface{}, chan error) {
 	resch := make(chan interface{}, 10)
 	errch := make(chan error)
