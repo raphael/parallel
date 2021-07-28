@@ -33,8 +33,8 @@ func Run(fn WorkerFn, n int) *Function {
 	return f
 }
 
-// Call schedules a single function call. Call panics if called after Stop
-// unless Reset is called, see Reset.
+// Call schedules a single function call. Call panics if called after Wait
+// unless Reset is called.
 func (f *Function) Call(arg interface{}) {
 	f.input <- arg
 }

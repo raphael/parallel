@@ -1,7 +1,7 @@
 # Parallel
  
 [![Go Reference](https://pkg.go.dev/badge/github.com/raphael/parallel.svg)](https://pkg.go.dev/github.com/raphael/parallel)
- [![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+ [![MIT License](https://img.shields.io/badge/License-MIT-brightgreen.svg?style=flat-square)](https://github.com/raphael/parallel/blob/main/LICENSE.txt)
 
 Parallel is a simple Go package for queueing parallel executions of a given
 function potentially providing different values for its arguments in each
@@ -28,24 +28,26 @@ simple and clean API that is easy to use and reason about.
 
 ## Installation
 
-        go get github.com/raphael/parallel
+    go get github.com/raphael/parallel
 
 ## Usage
 
 The package can be used in two ways:
-  - Using the high level `Function` type
-  - Using the low level `Do` function
+  - Using the high level [Function](https://pkg.go.dev/github.com/raphael/parallel#Function) type
+  - Using the low level [Do](https://pkg.go.dev/github.com/raphael/parallel#Do) function
 
-The `Function` type methods make use of the `Do` function internally and take
-care of doing the necessary channel management to expose a simple API:
+The [Function](https://pkg.go.dev/github.com/raphael/parallel#Function) type
+methods make use of the [Do](https://pkg.go.dev/github.com/raphael/parallel#Do)
+function internally and take care of doing the necessary channel management to
+expose a simple API:
 
 ```go
 // Run the function fn up to n times in parallel (note: the function won't
 // actually execute until Call is invoked below).
 f := parallel.Run(fn, n)
-// Call the function (Call can be invoked any number of times and is
-// goroutine-safe).
-f.Call(args)
+// Call the function with the given argument (Call can be invoked any number of
+// times and is goroutine-safe).
+f.Call(arg)
 // Wait for completion of all calls.
 f.Wait()
 ```
