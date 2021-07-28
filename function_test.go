@@ -54,3 +54,38 @@ func TestFunctionStopIdempotent(t *testing.T) {
 	f.Wait()
 	f.Wait()
 }
+
+func TestFunctionRest(t *testing.T) {
+	var res []int
+	f := Run(idemFunc, 10)
+	f.OnResult(func(result interface{}) {
+		res = append(res, result.(int))
+	})
+	for i := 0; i < 100; i++ {
+		f.Call(i)
+	}
+	f.Wait()
+	res = nil
+	f.Reset()
+	for i := 0; i < 100; i++ {
+		f.Call(i)
+	}
+	f.Wait()
+	if len(res) != 100 {
+		t.Fatalf("Got %d results, expected 100", len(res))
+	}
+	sort.Ints(res)
+	for i := 0; i < 100; i++ {
+		if res[i] != i {
+			t.Errorf("Got %v, expected %v", res[i], i)
+		}
+	}
+}
+
+func TestFunctionDummyHandlers(t *testing.T) {
+	f := Run(errFunc, 10)
+	for i := 0; i < 100; i++ {
+		f.Call(i)
+	}
+	f.Wait()
+}
