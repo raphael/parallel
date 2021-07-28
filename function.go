@@ -56,7 +56,7 @@ func (f *Function) Reset() {
 	f.lock.Lock()
 	defer f.lock.Unlock()
 	f.stopped = false
-	f.input = make(chan interface{}, f.n)
+	f.input = make(chan interface{})
 	f.output, f.errch = Do(f.fn, f.n, f.input)
 	f.wg = &sync.WaitGroup{}
 	f.wg.Add(1)

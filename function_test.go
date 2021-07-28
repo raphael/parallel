@@ -55,7 +55,7 @@ func TestFunctionStopIdempotent(t *testing.T) {
 	f.Wait()
 }
 
-func TestFunctionRest(t *testing.T) {
+func TestFunctionReset(t *testing.T) {
 	var res []int
 	f := Run(idemFunc, 10)
 	f.OnResult(func(result interface{}) {

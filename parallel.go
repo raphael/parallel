@@ -19,7 +19,7 @@ type (
 // returned channels. The returned channels are closed once all inputs have been
 // processed (that is the input channel is empty and closed).
 func Do(fn WorkerFn, n int, input chan interface{}) (chan interface{}, chan error) {
-	resch := make(chan interface{}, 10)
+	resch := make(chan interface{})
 	errch := make(chan error)
 	var wg sync.WaitGroup
 
